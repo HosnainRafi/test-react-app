@@ -48,9 +48,6 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
           handleBookingClose(true);
         }
       })
-
-    
-
   }
 
   const { user } = useAuth();

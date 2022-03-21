@@ -15,19 +15,30 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import { Button, Container, Grid, Paper } from '@mui/material';
-import Calender from '../../NewShared/Calender/Calender';
-import DashboardCalender from '../../NewShared/DashboardCalender';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import AppsIcon from '@mui/icons-material/Apps';
 import CalendarTodayTwoToneIcon from '@mui/icons-material/CalendarTodayTwoTone';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
-import DashboardAppointments from '../../DashboardAppointments/DashboardAppointments';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    useParams,
+    useRouteMatch
+} from "react-router-dom";
+import DashboardHome from '../../DashboardHome/DashboardHome';
+import MakeAdmin from '../../MakeAdmin/MakeAdmin';
+import MyAppointment from '../../MyAppointment/MyAppointment';
+import AddModeratorIcon from '@mui/icons-material/AddModerator';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import AdminRoute from '../../Login/AdminRoute/AdminRoute';
+import AddDoctors from '../../AddDoctors/AddDoctors';
+import AllAppointment from '../../AllAppointment/AllAppointment';
+
 
 const drawerWidth = 200;
 
@@ -98,8 +109,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const Dashboard = () => {
 
-    const [date, setDate] = useState(new Date());
-    const {logOut} = useAuth();
+    let { path, url } = useRouteMatch();
+
+
+    const { logOut,admin } = useAuth();
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -149,9 +162,9 @@ const Dashboard = () => {
                     <Divider />
                     <Box>
                         <List>
-                            {[{ text: 'Home', url: '/home' }, { text: 'Dashboard', url: '/dashboard' }, { text: 'Appointment', url: '/appointment' }, { text: 'Patient', url: '/patient' }].map((item, index) => (
+                            {[{ text: 'Home', url: '/home' }, { text: 'Dashboard', url: '/dashboard' }, { text: 'Appointment', url: '/appointment' },{ text: 'My Appointment', url: `${url}/myAppointment` }].map((item, index) => (
 
-                                <Link to={item.url} style={{textDecoration: 'none',color: '#FFFFFF'}}>
+                               !admin && <Link to={item.url} style={{ textDecoration: 'none', color: '#FFFFFF' }}>
                                     <ListItemButton
                                         key={item.text}
                                         sx={{
@@ -168,20 +181,53 @@ const Dashboard = () => {
                                                 color: '#FFFFFF'
                                             }}
                                         >
+                                            {index === 0 && <HomeIcon></HomeIcon>}
                                             {index === 1 && <AppsIcon ></AppsIcon>}
                                             {index === 2 && <CalendarTodayTwoToneIcon ></CalendarTodayTwoToneIcon>}
-                                            {index === 3 && <PeopleAltIcon ></PeopleAltIcon>}
-                                            {index === 0 && <HomeIcon></HomeIcon>}
+                                            {index === 3 && <PeopleAltIcon></PeopleAltIcon>}
                                         </ListItemIcon>
                                         <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
                                     </ListItemButton>
                                 </Link>
                             ))}
                         </List>
+
+                        <List>
+                            {[{ text: 'Home', url: '/home' },  { text: 'Dashboard', url: '/dashboard' },{ text: 'Make Admin', url: `${url}/makeAdmin` }, { text: 'All Appointment', url: `${url}/allAppointment` },{ text: 'Add Doctors', url: `${url}/addDoctors` }].map((item, index) => (
+
+                             admin && <Link to={item.url} style={{ textDecoration: 'none', color: '#FFFFFF' }}>
+                                <ListItemButton
+                                    key={item.text}
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5
+                                    }}
+                                >
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+                                            color: '#FFFFFF'
+                                        }}
+                                    >
+                                        {index === 1 && <AppsIcon ></AppsIcon>}
+                                        {index === 0 && <HomeIcon></HomeIcon>}
+                                        {index === 2 && <AddModeratorIcon></AddModeratorIcon>}
+                                        {index === 3 && <BusinessCenterIcon></BusinessCenterIcon> }
+                                        {index === 4 && <AddBoxIcon></AddBoxIcon> }
+                                    </ListItemIcon>
+                                    <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+                                </ListItemButton>
+                            </Link>
+                            ))}
+                        </List>
+
                         <List onClick={logOut}>
                             {['LogOut'].map((text, index) => (
-                                
-                                    <ListItemButton
+
+                                <ListItemButton
                                     key={text}
                                     sx={{
                                         minHeight: 48,
@@ -201,7 +247,7 @@ const Dashboard = () => {
                                     </ListItemIcon>
                                     <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
                                 </ListItemButton>
-                               
+
 
                             ))}
                         </List>
@@ -209,20 +255,25 @@ const Dashboard = () => {
                 </Drawer>
             </div>
             <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 4 }}>
-                <Grid container spacing={4} sx={{ mt: 4 }}>
-                    <Grid xs={12} md={4} sx={{ ml: 6 }}>
-                        <Paper elevation={3}><DashboardCalender
-                            date={date}
-                            setDate={setDate}
-                        ></DashboardCalender> </Paper>
-                    </Grid>
-                    <Grid xs={12} md={6} sx={{ ml: 8 }}>
-                        <DashboardAppointments
-                            date={date}
-                        ></DashboardAppointments>
-                    </Grid>
-                </Grid>
 
+                <Switch>
+                    <Route exact path={path}>
+                        <DashboardHome></DashboardHome>
+                    </Route>
+                    <AdminRoute path={`${path}/makeAdmin`}>
+                        <MakeAdmin></MakeAdmin>
+                    </AdminRoute>
+                    <AdminRoute path={`${path}/addDoctors`}>
+                        <AddDoctors></AddDoctors>
+                    </AdminRoute>
+                    <AdminRoute path={`${path}/allAppointment`}>
+                        <AllAppointment></AllAppointment>
+                    </AdminRoute>
+                    <Route exact path={`${path}/myAppointment`}>
+                        <MyAppointment></MyAppointment>
+                    </Route>
+                    
+                </Switch>
             </Box>
         </Box>
     );
