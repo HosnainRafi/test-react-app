@@ -27,12 +27,13 @@ const style = {
 
 const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
 
-  const { name, time } = booking;
+  const { name, time,price } = booking;
 
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
     data.serviceName = name;
+    data.price = price;
     console.log(data);
     fetch('http://localhost:5000/appointments', {
       method: 'POST',

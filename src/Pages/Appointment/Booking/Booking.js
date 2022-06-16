@@ -6,7 +6,7 @@ import MuiButton from '../../../StyledComponent/MuiButton'
 import BookingModal from '../BookingModal/BookingModal';
 
 const Booking = ({ booking,date }) => {
-    const { name, time, space } = booking;
+    const { name, time, space,price } = booking;
 
     const [openBooking, setOpenBooking] = React.useState(false);
     const handleBookingOpen = () => setOpenBooking(true);
@@ -19,6 +19,7 @@ const Booking = ({ booking,date }) => {
             <Paper elevation={3} sx={{ py: 5 }}>
                 <Typography variant="h5" gutterBottom component="div" style={{ color: "#0FCFEC" }} sx={{ fontWeight: '600' }}>{name}</Typography>
                 <Typography variant="h6" gutterBottom component="div">{time}</Typography>
+                <Typography variant="h6" gutterBottom component="div" color="red">Price: {price}$</Typography>
                 <Typography variant="caption" display="block">{space} spaces available</Typography>
                 <br />
                 <MuiButton  onClick={handleBookingOpen}>Book Appointment</MuiButton>

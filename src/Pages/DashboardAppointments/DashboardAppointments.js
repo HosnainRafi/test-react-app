@@ -9,6 +9,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
+import MuiButton from '../../StyledComponent/MuiButton';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -53,6 +56,7 @@ const DashboardAppointments = ({date}) => {
                             <StyledTableCell>Name</StyledTableCell>
                             <StyledTableCell align="left">Schedule</StyledTableCell>
                             <StyledTableCell align="left">Service</StyledTableCell>
+                            <StyledTableCell align="left">Action</StyledTableCell>
                             
                         </TableRow>
                     </TableHead>
@@ -64,6 +68,10 @@ const DashboardAppointments = ({date}) => {
                                 </StyledTableCell>
                                 <StyledTableCell align="left">{row.time}</StyledTableCell>
                                 <StyledTableCell align="left">{row.serviceName}</StyledTableCell>
+                                <StyledTableCell align="left">{row.payment ? 'Paid' :
+                                <Link to={`/dashboard/payment/${row._id}`} style={{textDecoration: 'none'}}><Button variant='contained' color='primary' >Pay</Button></Link>
+                                
+                                }</StyledTableCell>
                                 
                                 
                             </StyledTableRow>
