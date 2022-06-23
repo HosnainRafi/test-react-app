@@ -23,6 +23,9 @@ const SSLCheckout = () => {
       .then(data => setAppointment(data));
   }, [appointmentId])
 
+
+  
+
   //console.log(appointment);
 
   const handlePay = () => {
