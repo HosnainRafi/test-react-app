@@ -10,6 +10,7 @@ import Appointment from "./Pages/Appointment/Appointment/Appointment";
 import Dashboard from "./Pages/Dashboard/Dashboard/Dashboard";
 import Home from "./Pages/Home/Home/Home";
 import Login from "./Pages/Login/Login";
+import Success from "./Pages/Payment/Success";
 import PrivateRoute from "./Pages/PrivateRoute/PrivateRoute";
 import Register from "./Pages/Register/Register";
 
@@ -31,6 +32,10 @@ function App() {
             <Route path="/register">
               <Register></Register>
             </Route>
+            <Route path="/success">
+              <Success></Success>
+            </Route>
+            
             <PrivateRoute path="/appointment">
               <Appointment></Appointment>
             </PrivateRoute>

@@ -203,7 +203,7 @@ const CheckoutForm = ({ appointment }) => {
       const payment = {
         amount: paymentIntent.amount,
         created: paymentIntent.created,
-        transaction: paymentIntent.client_secret.slice('_secret')[0]
+        transaction: paymentIntent.client_secret.slice('_secret')[1]
 
 
       }

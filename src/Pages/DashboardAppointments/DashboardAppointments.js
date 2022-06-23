@@ -57,7 +57,7 @@ const DashboardAppointments = ({date}) => {
                             <StyledTableCell align="left">Schedule</StyledTableCell>
                             <StyledTableCell align="left">Service</StyledTableCell>
                             <StyledTableCell align="left">Action</StyledTableCell>
-                            
+                            <StyledTableCell align="left">SSL Action</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -68,8 +68,12 @@ const DashboardAppointments = ({date}) => {
                                 </StyledTableCell>
                                 <StyledTableCell align="left">{row.time}</StyledTableCell>
                                 <StyledTableCell align="left">{row.serviceName}</StyledTableCell>
-                                <StyledTableCell align="left">{row.payment ? 'Paid' :
+                                <StyledTableCell align="left">{row.payment?.transaction ? 'Paid' :
                                 <Link to={`/dashboard/payment/${row._id}`} style={{textDecoration: 'none'}}><Button variant='contained' color='primary' >Pay</Button></Link>
+                                
+                                }</StyledTableCell>
+                                <StyledTableCell align="left">{row.payment?.transaction ? 'Paid' :
+                                <Link to={`/dashboard/sslPayment/${row._id}`} style={{textDecoration: 'none'}}><Button variant='contained' color='primary' >Pay</Button></Link>
                                 
                                 }</StyledTableCell>
                                 

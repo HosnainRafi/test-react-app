@@ -39,6 +39,7 @@ import AdminRoute from '../../Login/AdminRoute/AdminRoute';
 import AddDoctors from '../../AddDoctors/AddDoctors';
 import AllAppointment from '../../AllAppointment/AllAppointment';
 import Payment from '../../Payment/Payment';
+import SSLCheckout from '../../Payment/SSLCheckout';
 
 
 const drawerWidth = 200;
@@ -263,6 +264,9 @@ const Dashboard = () => {
                     </Route>
                     <Route path={`${path}/payment/:appointmentId`}>
                         <Payment></Payment>
+                    </Route>
+                    <Route path={`${path}/sslPayment/:appointmentId`}>
+                        <SSLCheckout></SSLCheckout>
                     </Route>
                     <AdminRoute path={`${path}/makeAdmin`}>
                         <MakeAdmin></MakeAdmin>

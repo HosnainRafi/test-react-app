@@ -4,6 +4,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import CheckoutForm from './CheckoutForm';
+import SSLCheckout from './SSLCheckout';
 
 
 const stripePromise = loadStripe('pk_test_51JvwUbHaybpCvMFtJNxh0IMGIDjGrbVCVW4A7Jrvz17Tt2BYxVGKHpPACLnmgoVr8vWfz7vcfKNoCnIDdfPqpGYW00zB1bvFPb');
@@ -39,6 +40,7 @@ const Payment = () => {
                 appointment={appointment}
                 />
             </Elements>}
+            
         </div>
     );
 };
