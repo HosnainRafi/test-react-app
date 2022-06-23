@@ -35,6 +35,7 @@ const SSLCheckout = () => {
       cus_email: appointment?.email,
       cus_phone: appointment?.phone,
       total_amount: appointment?.price*90,
+      appointmentId: appointmentId
     }
 
     const url = `http://localhost:5000/init/`

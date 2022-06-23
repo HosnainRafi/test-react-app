@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography'
 import MuiButton from '../../StyledComponent/MuiButton';
 import { Link } from 'react-router-dom';
-import { textAlign } from '@mui/system';
+
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Success = () => {
@@ -17,21 +17,24 @@ const Success = () => {
             .then(data => setPaymentDetails(data))
     }, [id]);
 
+    console.log(paymentDetails);
+
     const payment = {
         amount: paymentDetails.total_amount,
         tran_id: paymentDetails.tran_id,
         transaction: paymentDetails.transaction,
         currency: paymentDetails.currency,
+        appointmentId: paymentDetails.appointmentId
     }
 
-    const url = `http://localhost:3000/success/${id}`
-    fetch(url, {
+    const url = `http://localhost:5000/success/${id}`
+      fetch(url, {
         method: 'PUT',
         headers: {
-            'content-type': 'application/json'
+          'content-type': 'application/json'
         },
         body: JSON.stringify(payment)
-    })
+      })
         .then(res => res.json())
         .then(data => console.log(data))
 
